@@ -25,6 +25,17 @@ app.get('/project', function (req, res) {
   res.render('project.ejs', { projectList });
 });
 
+app.get('/project/:id', function (req, res) {
+  let projectIdx = req.params.id;
+  let project = projectList[projectIdx];
+
+  if (project) {
+    res.render('project.ejs', { project: project, projectIdx: projectIdx });
+  } else {
+    res.redirect('/project');
+  }
+});
+
 // ... rest of the routes ...
 
 app.use(function (req, res, next) {
