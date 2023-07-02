@@ -13,7 +13,7 @@
     "test": "mocha --recursive --exit"
   },
   "author": "riaan@entersekt.com",
-  "description": "Basic to do list exercise",
+  "description": "Basic project list exercise",
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.1",
