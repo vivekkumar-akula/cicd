@@ -1,37 +1,23 @@
 <!DOCTYPE html>
-
 <html>
-
     <head>
-        <title>Todo List APP test</title>
+        <title>Edit Project: <%- project %></title>
         <style>
             a {
                 text-decoration: none;
                 color: black;
             }
-
         </style>
     </head>
-
     <body>
-        <h1>Jenkins is just Amazing, Awesome and I will attend Live sessions</h1>
-        <ul>
-            <% todolist.forEach(function(todo, index) { %>
-            <li>
-                <a href="/todo/delete/<%= index %>">✘</a>
-                <a href="/todo/<%= index %>">✎</a>
-                <%- todo %>
-            </li>
-            <% }); %>
-        </ul>
-
-        <form action="/todo/add/" method="post">
+        <h1>Edit Project: <%- project %></h1>
+        <form action="/project/edit/<%= projectIdx %>" method="post">
             <p>
-                <label for="newtodo">What shoud I do?</label>
-                <input type="text" name="newtodo" id="newtodo" autofocus />
-                <input type="submit" value="Add" />
+                <label for="editProject">Change to:</label>
+                <input type="hidden" name="_method" value="PUT">
+                <input type="text" name="editProject" id="editProject" autofocus placeholder="<%- project %>" />
+                <input type="submit" value="Save" />
             </p>
         </form>
     </body>
-
 </html>
