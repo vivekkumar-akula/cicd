@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Project List App</title>
+        <title>Edit Project: <%= project %></title>
         <style>
             a {
                 text-decoration: none;
@@ -10,21 +10,13 @@
         </style>
     </head>
     <body>
-        <h1>Project List App</h1>
-        <ul>
-            <% projectList.forEach(function(project, index) { %>
-            <li>
-                <a href="/project/delete/<%= index %>">✘</a>
-                <a href="/project/edit/<%= index %>">✎</a>
-                <%- project %>
-            </li>
-            <% }); %>
-        </ul>
-        <form action="/project/add/" method="post">
+        <h1>Edit Project: <%= project %></h1>
+        <form action="/project/edit/<%= projectIdx %>" method="post">
             <p>
-                <label for="newProject">What should I do?</label>
-                <input type="text" name="newProject" id="newProject" autofocus />
-                <input type="submit" value="Add" />
+                <label for="editProject">Change to:</label>
+                <input type="hidden" name="_method" value="PUT">
+                <input type="text" name="editProject" id="editProject" autofocus placeholder="<%= project %>" />
+                <input type="submit" value="Save" />
             </p>
         </form>
     </body>
