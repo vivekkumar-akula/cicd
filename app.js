@@ -18,7 +18,7 @@ app.use(methodOverride(function (req, res) {
 let projectList = [];
 
 app.get('/project', function (req, res) {
-  res.render('project.ejs', { projectList });
+  res.render('project.ejs', { projectList, project: null });
 });
 
 app.post('/project/add/', function (req, res) {
@@ -41,7 +41,7 @@ app.get('/project/:id', function (req, res) {
   let project = projectList[projectIdx];
 
   if (project) {
-    res.render('edit.ejs', { projectIdx, project });
+    res.render('edit.ejs', { projectList, projectIdx, project });
   } else {
     res.redirect('/project');
   }
