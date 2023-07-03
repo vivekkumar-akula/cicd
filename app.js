@@ -1,12 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const sanitizer = require('sanitizer');
 const app = express();
 const port = 8000;
-const path = require('path');
-
-// Set the views folder
-app.set('views', path.join(__dirname, 'views'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride(function (req, res) {
@@ -19,23 +16,45 @@ app.use(methodOverride(function (req, res) {
 
 let projectList = [];
 
-// Routes
 app.get('/project', function (req, res) {
   res.render('project.ejs', { projectList });
 });
 
-app.get('/project/:id', function (req, res) {
+app.post('/project/add', function (req, res) {
+  let newProject = sanitizer.escape(req.body.newProject);
+  if (newProject !== '') {
+    projectList.push(newProject);
+  }
+  res.redirect('/project');
+});
+
+app.get('/project/delete/:id', function (req, res) {
+  let projectIdx = req.params.id;
+  if (projectIdx !== '') {
+    projectList.splice(projectIdx, 1);
+  }
+  res.redirect('/project');
+});
+
+app.get('/project/edit/:id', function (req, res) {
   let projectIdx = req.params.id;
   let project = projectList[projectIdx];
 
   if (project) {
-    res.render('project.ejs', { project: project, projectIdx: projectIdx });
+    res.render('edit.ejs', { projectIdx, project });
   } else {
     res.redirect('/project');
   }
 });
 
-// ... rest of the routes ...
+app.put('/project/edit/:id', function (req, res) {
+  let projectIdx = req.params.id;
+  let editProject = sanitizer.escape(req.body.editProject);
+  if (projectIdx !== '' && editProject !== '') {
+    projectList[projectIdx] = editProject;
+  }
+  res.redirect('/project');
+});
 
 app.use(function (req, res, next) {
   res.redirect('/project');
@@ -46,4 +65,3 @@ app.listen(port, function () {
 });
 
 module.exports = app;
-
