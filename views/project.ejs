@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>Project List Website</h1>
-        <h2>Note : Once the project is displayed on screen it cant be changed and otherpersons need to give the exisisting project</h2>
+        <h2>Note : Once the project is displayed on screen it cant be changed and other students should not add the exisisting project</h2>
         <ul>
             <% projectList.forEach(function(project, index) { %>
             <li>
@@ -23,7 +23,7 @@
         </ul>
         <form action="/project/add/" method="post">
             <p>
-                <label for="newProject">What should I do?</label>
+                <label for="newProject">Project title</label>
                 <input type="text" name="newProject" id="newProject" autofocus />
                 <input type="submit" value="Add" />
             </p>
